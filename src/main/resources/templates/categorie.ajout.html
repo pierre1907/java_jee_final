@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestion de Categories</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+</head>
+<body>
+<div class="container">
+    <h1>Formulaire d'ajout de categorie</h1>
+    <div class="row">
+        <form th:action="@{/categorie/save}" th:object="${categorie}" method="post" onsubmit="return validateForm()">
+            <div class="mb-3 col-6">
+                <label for="code" class="form-label">Code</label>
+                <input type="text" class="form-control" th:field="*{code}" id="code" oninput="clearError('codeError')">
+                <div id="codeError" style="color: red;"></div>
+            </div>
+            <div class="mb-3 col-6">
+                <label for="libelle" class="form-label">Libelle</label>
+                <input type="text" class="form-control" th:field="*{libelle}" id="libelle" oninput="clearError('libelleError')">
+                <div id="libelleError" style="color: red;"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <a th:href="@{/categorie/gestion}" class="btn btn-primary">Retour menu</a>
+    <a th:href="@{/}" class="btn btn-primary">Home</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script>
+    function validateForm() {
+        var codeInput = document.getElementById("code");
+        var libelleInput = document.getElementById("libelle");
+        var codeError = document.getElementById("codeError");
+        var libelleError = document.getElementById("libelleError");
+        var isValid = true;
+
+        codeError.innerHTML = "";
+        libelleError.innerHTML = "";
+
+        if (codeInput.value.trim() === "") {
+            codeError.innerHTML = "Le code de la catégorie est requis.";
+            isValid = false;
+        }
+
+        if (libelleInput.value.trim() === "") {
+            libelleError.innerHTML = "Le libellé de la catégorie est requis.";
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    function clearError(errorId) {
+        var errorElement = document.getElementById(errorId);
+        if (errorElement) {
+            errorElement.innerHTML = "";
+        }
+    }
+</script>
+</body>
+</html>

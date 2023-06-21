@@ -16,6 +16,26 @@
   <a th:href="@{/}" class="btn btn-primary">Home</a>
   <div class="row">
     <h1>La liste des produits</h1>
+
+    <div class="form-group">
+      <label for="categorie">Catégorie :</label>
+      <select class="form-control" id="categorie" onchange="filterProduitsByCategorie(this.value)">
+        <option value="">Toutes les catégories</option>
+        <th:block th:each="c : ${categories}">
+          <option th:value="${c.libelle}" th:text="${c.libelle}"></option>
+        </th:block>
+      </select>
+    </div>
+    <!--
+    <form th:action="@{/categorie/liste}" th:object="${categorie}" method="get">
+      <div class="form-group">
+        <label for="categorie">Catégorie :</label>
+        <select class="form-control" th:field="*{codeCat}" id="categorie" onchange="clearError('categorieError')">
+          <option value="">Sélectionner une catégorie</option>
+          <option th:each="categorie : ${categories}" th:value="${categorie.code}" th:text="${categorie.libelle}"></option>
+        </select>
+      </div>
+    </form>-->
     <table class="table table-striped">
       <thead>
       <tr>
